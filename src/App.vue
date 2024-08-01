@@ -1,1 +1,28 @@
-<template></template>
+<template>
+  <div id="app">
+    <navbar-component></navbar-component>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+import NavbarComponent from "./components/NavbarComponent.vue";
+
+export default {
+  name: "App",
+  components: {
+    NavbarComponent,
+  },
+};
+</script>
+
+<style>
+body {
+  font-family: BDSans-Regular, sans-serif !important;
+  background-color: var(--primary-light);
+  min-height: 100vh;
+}
+* {
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+}
+</style>
