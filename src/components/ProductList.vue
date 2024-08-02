@@ -57,5 +57,84 @@
 </template>
 
 <script>
-// ... (keep the script section as it was in the previous version)
+import { ref, onMounted } from "vue";
+import ProductCard from "./ProductCard.vue";
+
+export default {
+  name: "ProductList",
+  components: {
+    ProductCard,
+  },
+  setup() {
+    const products = ref([]);
+    const loading = ref(true);
+    const selectedCategory = ref("");
+    const sortOrder = ref("");
+    const filteredProductsList = ref([]);
+    const categories = ref([]);
+
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          "https://fakestoreapi.com/products/categories"
+        );
+        categories.value = await response.json();
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    const fetchProducts = async () => {
+      loading.value = true;
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        products.value = await response.json();
+        filteredProductsList.value = products.value;
+        loading.value = false;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        loading.value = false;
+      }
+    };
+
+    const filterProducts = () => {
+      let tempProducts = products.value;
+
+      if (selectedCategory.value) {
+        tempProducts = tempProducts.filter(
+          (product) => product.category === selectedCategory.value
+        );
+      }
+
+      if (sortOrder.value === "asc") {
+        tempProducts = tempProducts.sort((a, b) => a.price - b.price);
+      } else if (sortOrder.value === "desc") {
+        tempProducts = tempProducts.sort((a, b) => b.price - a.price);
+      }
+
+      filteredProductsList.value = tempProducts;
+    };
+
+    const resetFilters = () => {
+      selectedCategory.value = "";
+      sortOrder.value = "";
+      filteredProductsList.value = products.value;
+    };
+
+    onMounted(async () => {
+      await fetchCategories();
+      await fetchProducts();
+    });
+
+    return {
+      loading,
+      selectedCategory,
+      sortOrder,
+      filteredProductsList,
+      categories,
+      filterProducts,
+      resetFilters,
+    };
+  },
+};
 </script>
