@@ -2,6 +2,9 @@
   <div v-if="loading" class="container mx-auto px-6 py-8 text-center">
     Loading...
   </div>
+  <div v-else-if="error" class="container mx-auto px-6 py-8 text-center">
+    Error: {{ error }}
+  </div>
   <div v-else class="container mx-auto px-6 py-8">
     <div class="bg-white rounded-lg p-6">
       <h2 class="text-2xl font-semibold text-primary-dark mb-4">
@@ -20,7 +23,7 @@
         <span class="ml-2">{{ product.rating.count }} reviews</span>
       </div>
       <router-link
-        to="/"
+        to="/products"
         class="bg-primary-dark text-primary-light font-semibold py-2 px-4 rounded"
       >
         Back to Products
@@ -43,13 +46,18 @@ export default {
     const route = useRoute();
     const product = ref({});
     const loading = ref(true);
+    const error = ref(null);
 
     const fetchProduct = async (id) => {
       try {
         const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch product");
+        }
         product.value = await response.json();
-      } catch (error) {
-        console.error("Error fetching product:", error);
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        error.value = err.message;
       } finally {
         loading.value = false;
       }
@@ -62,6 +70,7 @@ export default {
     return {
       product,
       loading,
+      error,
     };
   },
 };

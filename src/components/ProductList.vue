@@ -83,18 +83,28 @@ export default {
     const filteredProductsList = ref([]);
     const categories = ref([]);
 
-    const fetchProducts = () => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          "https://fakestoreapi.com/products/categories"
+        );
+        categories.value = await response.json();
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    const fetchProducts = async () => {
       loading.value = true;
-      fetch("https://fakestoreapi.com/products")
-        .then((response) => response.json())
-        .then((data) => {
-          products.value = data;
-          filteredProductsList.value = data;
-          categories.value = [
-            ...new Set(data.map((product) => product.category)),
-          ];
-          loading.value = false;
-        });
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        products.value = await response.json();
+        filteredProductsList.value = products.value;
+        loading.value = false;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        loading.value = false;
+      }
     };
 
     const filterProducts = () => {
@@ -121,8 +131,9 @@ export default {
       filteredProductsList.value = products.value;
     };
 
-    onMounted(() => {
-      fetchProducts();
+    onMounted(async () => {
+      await fetchCategories();
+      await fetchProducts();
     });
 
     return {
