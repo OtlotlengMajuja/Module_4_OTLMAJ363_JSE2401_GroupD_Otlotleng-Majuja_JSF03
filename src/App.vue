@@ -17,6 +17,14 @@ export default {
 </script>
 
 <style>
+:root {
+  --primary-dark: #121425;
+  --primary-medium: #4f2c2c;
+  --primary-light: #fcfcfc;
+  --primary-accent1: #8c4433;
+  --primary-accent2: #c95c3b;
+}
+
 body {
   font-family: BDSans-Regular, sans-serif !important;
   background-color: var(--primary-light);
