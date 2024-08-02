@@ -51,20 +51,6 @@
               >Products</router-link
             >
           </li>
-          <li>
-            <router-link
-              to="/about"
-              class="block py-2 px-3 text-white rounded hover:bg-primary-accent1 md:hover:bg-transparent md:border-0 md:hover:text-primary-accent2 md:p-0"
-              >About</router-link
-            >
-          </li>
-          <li>
-            <router-link
-              to="/contact"
-              class="block py-2 px-3 text-white rounded hover:bg-primary-accent1 md:hover:bg-transparent md:border-0 md:hover:text-primary-accent2 md:p-0"
-              >Contact</router-link
-            >
-          </li>
         </ul>
       </div>
     </div>
