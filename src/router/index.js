@@ -5,11 +5,6 @@ import ProductDetails from '../components/ProductDetails.vue';
 
 const routes = [
     {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
-    {
         path: '/products',
         name: 'ProductList',
         component: ProductList

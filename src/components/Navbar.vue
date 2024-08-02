@@ -1,57 +1,48 @@
 <template>
-  <nav class="bg-primary-medium border-primary-dark sticky top-0 z-50">
-    <div
-      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-    >
-      <router-link
-        to="/"
-        class="flex items-center space-x-3 rtl:space-x-reverse"
-      >
-        <img src="../assets/logo.png" class="h-8" alt="Emercom Logo" />
-        <span
-          class="self-center text-2xl font-semibold whitespace-nowrap text-primary-light"
-          >Emercom</span
-        >
-      </router-link>
-      <button @click="toggleMenu" class="md:hidden text-white">
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16m-7 6h7"
-          ></path>
-        </svg>
-      </button>
-      <div
-        :class="{ hidden: !isMenuOpen }"
-        class="w-full md:block md:w-auto"
-        id="navbar-default"
-      >
-        <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent"
-        >
-          <li>
+  <nav class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <router-link to="/" class="flex items-center">
+            <img src="../assets/logo.png" class="h-8 w-8" alt="Emercom Logo" />
+            <span class="ml-2 text-white text-lg font-semibold">Emercom</span>
+          </router-link>
+        </div>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-4">
             <router-link
               to="/"
-              class="block py-2 px-3 text-white rounded hover:bg-primary-accent1 md:hover:bg-transparent md:border-0 md:hover:text-primary-accent2 md:p-0"
-              >Home</router-link
-            >
-          </li>
-          <li>
-            <router-link
-              to="/products"
-              class="block py-2 px-3 text-white rounded hover:bg-primary-accent1 md:hover:bg-transparent md:border-0 md:hover:text-primary-accent2 md:p-0"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >Products</router-link
             >
-          </li>
-        </ul>
+          </div>
+        </div>
+        <div class="md:hidden">
+          <button @click="toggleMenu" class="text-gray-400 hover:text-white">
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div :class="{ hidden: !isMenuOpen }" class="md:hidden">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <router-link
+          to="/"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >Products</router-link
+        >
       </div>
     </div>
   </nav>
