@@ -1,33 +1,41 @@
 <template>
-  <div v-if="loading" class="container mx-auto px-6 py-8 text-center">
-    Loading...
-  </div>
-  <div v-else-if="error" class="container mx-auto px-6 py-8 text-center">
-    Error: {{ error }}
-  </div>
-  <div v-else class="container mx-auto px-6 py-8">
-    <div class="bg-white rounded-lg p-6">
-      <h2 class="text-2xl font-semibold text-primary-dark mb-4">
-        {{ product.title }}
-      </h2>
-      <img
-        :src="product.image"
-        :alt="product.title"
-        class="h-64 object-contain mb-4"
-      />
-      <p class="mb-4">{{ product.description }}</p>
-      <p class="mb-4">Category: {{ product.category }}</p>
-      <p class="mb-4">Price: ${{ product.price }}</p>
-      <div class="flex items-center mb-4">
-        <star-rating :rating="product.rating.rate"></star-rating>
-        <span class="ml-2">{{ product.rating.count }} reviews</span>
+  <div class="container mx-auto px-4 py-8">
+    <div v-if="loading" class="text-center text-xl">Loading...</div>
+    <div v-else-if="error" class="text-center text-red-500 text-xl">
+      Error: {{ error }}
+    </div>
+    <div v-else class="bg-white rounded-lg shadow overflow-hidden">
+      <div class="md:flex">
+        <div class="md:flex-shrink-0">
+          <img
+            :src="product.image"
+            :alt="product.title"
+            class="h-48 w-full object-contain md:h-full md:w-48 p-4"
+          />
+        </div>
+        <div class="p-8">
+          <h2 class="text-2xl font-bold mb-4">
+            {{ product.title }}
+          </h2>
+          <p class="text-gray-600 mb-4">{{ product.description }}</p>
+          <p class="text-xl font-semibold mb-4">
+            ${{ product.price.toFixed(2) }}
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">Category:</span> {{ product.category }}
+          </p>
+          <div class="flex items-center mb-4">
+            <star-rating :rating="product.rating.rate"></star-rating>
+            <span class="ml-2">{{ product.rating.count }} reviews</span>
+          </div>
+          <router-link
+            to="/"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Back to Products
+          </router-link>
+        </div>
       </div>
-      <router-link
-        to="/products"
-        class="bg-primary-dark text-primary-light font-semibold py-2 px-4 rounded"
-      >
-        Back to Products
-      </router-link>
     </div>
   </div>
 </template>
