@@ -9,7 +9,7 @@
       <h2 class="text-lg font-semibold mb-2 truncate">{{ product.title }}</h2>
       <p class="text-gray-600 mb-2">${{ product.price.toFixed(2) }}</p>
       <p class="text-sm text-gray-500 mb-2">{{ product.category }}</p>
-      <div class="flex items-center mb-4">
+      <div class="mb-4">
         <star-rating :rating="product.rating.rate"></star-rating>
         <span class="ml-2 text-sm text-gray-600"
           >{{ product.rating.count }} reviews</span

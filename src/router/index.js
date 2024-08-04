@@ -5,6 +5,10 @@ import ProductDetails from '../components/ProductDetails.vue';
 
 const routes = [
     {
+        path: '/',
+        redirect: '/products'
+    },
+    {
         path: '/products',
         name: 'ProductList',
         component: ProductList
