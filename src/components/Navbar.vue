@@ -49,14 +49,30 @@
 </template>
 
 <script>
+/**
+ * Navbar component
+ *
+ * This component represents the navigation bar for the application.
+ *
+ * @component
+ * @property {boolean} isMenuOpen - Indicates whether the mobile menu is open.
+ */
 export default {
   name: "Navbar",
   data() {
     return {
+      /**
+       * Indicates whether the mobile menu is open.
+       *
+       * @type {boolean}
+       */
       isMenuOpen: false,
     };
   },
   methods: {
+    /**
+     * Toggles the mobile menu open/closed state.
+     */
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
