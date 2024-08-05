@@ -5,7 +5,7 @@
         <div class="flex items-center">
           <router-link to="/" class="flex items-center">
             <img src="../assets/logo.png" class="h-8 w-8" alt="Emercom Logo" />
-            <span class="ml-2 text-white text-lg font-semibold">Emercom</span>
+            <span class="ml-2 text-black text-lg font-semibold">Emercom</span>
           </router-link>
         </div>
         <div class="hidden md:block">

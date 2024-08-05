@@ -30,7 +30,7 @@
           </div>
           <router-link
             to="/"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             Back to Products
           </router-link>
