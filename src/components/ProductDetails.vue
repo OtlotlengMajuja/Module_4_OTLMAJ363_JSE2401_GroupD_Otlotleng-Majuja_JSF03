@@ -50,6 +50,13 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import StarRating from "./StarRating.vue";
 
+/**
+ * ProductDetails component
+ *
+ * This component fetches and displays the details of a single product.
+ *
+ * @component
+ */
 export default {
   name: "ProductDetails",
   components: {
@@ -57,10 +64,35 @@ export default {
   },
   setup() {
     const route = useRoute();
+
+    /**
+     * The product details.
+     *
+     * @type {import('vue').Ref<object>}
+     */
     const product = ref({});
+
+    /**
+     * Indicates whether the product data is loading.
+     *
+     * @type {import('vue').Ref<boolean>}
+     */
     const loading = ref(true);
+
+    /**
+     * Stores any error that occurs during the fetch operation.
+     *
+     * @type {import('vue').Ref<string | null>}
+     */
     const error = ref(null);
 
+    /**
+     * Fetches the product details based on the given ID.
+     *
+     * @async
+     * @function fetchProduct
+     * @param {number} id - The ID of the product to fetch.
+     */
     const fetchProduct = async (id) => {
       try {
         const response = await fetch(`https://fakestoreapi.com/products/${id}`);
@@ -76,6 +108,11 @@ export default {
       }
     };
 
+    /**
+     * Fetch the product when the component is mounted.
+     *
+     * @see https://vuejs.org/api/composition-api-lifecycle.html#onmounted
+     */
     onMounted(() => {
       fetchProduct(route.params.id);
     });
