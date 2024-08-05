@@ -40,14 +40,29 @@
 </template>
 
 <script>
+/**
+ * Header component
+ *
+ * This component represents the header of the application, containing the navigation bar.
+ *
+ * @component
+ */
 export default {
   name: "Header",
   data() {
     return {
+      /**
+       * Indicates whether the mobile menu is open.
+       *
+       * @type {boolean}
+       */
       isMenuOpen: false,
     };
   },
   methods: {
+    /**
+     * Toggles the mobile menu open/closed state.
+     */
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
