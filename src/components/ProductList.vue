@@ -60,6 +60,13 @@ import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import ProductCard from "./ProductCard.vue";
 
+/**
+ * ProductList component
+ *
+ * This component is responsible for displaying a list of products with filtering and sorting options.
+ *
+ * @component
+ */
 export default {
   name: "ProductList",
   components: {
@@ -68,27 +75,65 @@ export default {
   setup() {
     const store = useStore();
 
+    /**
+     * Indicates whether the data is loading.
+     *
+     * @type {import('vue').ComputedRef<boolean>}
+     */
     const loading = computed(() => store.state.loading);
+
+    /**
+     * The selected category for filtering products.
+     *
+     * @type {import('vue').WritableComputedRef<string>}
+     */
     const selectedCategory = computed({
       get: () => store.state.selectedCategory,
       set: (value) => store.commit("setSelectedCategory", value),
     });
+
+    /**
+     * The sort order for sorting products by price.
+     *
+     * @type {import('vue').WritableComputedRef<string>}
+     */
     const sortOrder = computed({
       get: () => store.state.sortOrder,
       set: (value) => store.commit("setSortOrder", value),
     });
+
+    /**
+     * The list of available categories.
+     *
+     * @type {import('vue').ComputedRef<string[]>}
+     */
     const categories = computed(() => store.state.categories);
+
+    /**
+     * The list of filtered products based on selected category and sort order.
+     *
+     * @type {import('vue').ComputedRef<object[]>}
+     */
     const filteredProducts = computed(() => store.getters.filteredProducts);
 
+    /**
+     * Filters the products based on the selected category and sort order.
+     */
     const filterProducts = () => {
       store.commit("setSelectedCategory", selectedCategory.value);
       store.commit("setSortOrder", sortOrder.value);
     };
 
+    /**
+     * Resets the filters to their default values.
+     */
     const resetFilters = () => {
       store.commit("resetFilters");
     };
 
+    /**
+     * Fetches the categories and products when the component is mounted.
+     */
     onMounted(async () => {
       await store.dispatch("fetchCategories");
       await store.dispatch("fetchProducts");
