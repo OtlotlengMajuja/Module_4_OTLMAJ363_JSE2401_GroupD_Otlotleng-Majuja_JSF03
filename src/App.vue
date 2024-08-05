@@ -8,9 +8,20 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 
+/**
+ * The root component of the application.
+ *
+ * This component serves as the main entry point for the application, rendering
+ * the navigation bar and the router view where different pages will be displayed.
+ *
+ * @component
+ */
 export default {
   name: "App",
   components: {
+    /**
+     * Navbar component
+     */
     Navbar,
   },
 };
