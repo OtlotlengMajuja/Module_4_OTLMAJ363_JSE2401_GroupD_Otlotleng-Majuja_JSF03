@@ -1,6 +1,7 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="mb-8 bg-white rounded-lg shadow p-6">
+      <h1 class="text-2xl font-bold mb-4">Our Products</h1>
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center">
           <label for="category" class="mr-2">Category:</label>
@@ -47,7 +48,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
       <product-card
-        v-for="product in filteredProductsList"
+        v-for="product in filteredProducts"
         :key="product.id"
         :product="product"
       ></product-card>
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import ProductCard from "./ProductCard.vue";
 
@@ -68,7 +69,6 @@ export default {
   setup() {
     const store = useStore();
 
-    const products = computed(() => store.state.products);
     const loading = computed(() => store.state.loading);
     const selectedCategory = computed({
       get: () => store.state.selectedCategory,
@@ -78,11 +78,8 @@ export default {
       get: () => store.state.sortOrder,
       set: (value) => store.commit("setSortOrder", value),
     });
-    const filteredProductsList = computed(() => store.getters.filteredProducts);
     const categories = computed(() => store.state.categories);
-
-    const fetchCategories = () => store.dispatch("fetchCategories");
-    const fetchProducts = () => store.dispatch("fetchProducts");
+    const filteredProducts = computed(() => store.getters.filteredProducts);
 
     const filterProducts = () => {
       store.commit("setSelectedCategory", selectedCategory.value);
@@ -94,16 +91,16 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchCategories();
-      await fetchProducts();
+      await store.dispatch("fetchCategories");
+      await store.dispatch("fetchProducts");
     });
 
     return {
       loading,
       selectedCategory,
       sortOrder,
-      filteredProductsList,
       categories,
+      filteredProducts,
       filterProducts,
       resetFilters,
     };
