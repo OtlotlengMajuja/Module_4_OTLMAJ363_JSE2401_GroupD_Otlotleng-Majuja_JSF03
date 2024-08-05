@@ -20,9 +20,22 @@
 </template>
 
 <script>
+/**
+ * StarRating component
+ *
+ * @component
+ * @example
+ * <StarRating :rating="4.5" />
+ */
 export default {
   name: "StarRating",
   props: {
+    /**
+     * The rating value to display.
+     *
+     * @type {number}
+     * @required
+     */
     rating: {
       type: Number,
       required: true,
