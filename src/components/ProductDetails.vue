@@ -26,11 +26,16 @@
           </p>
           <div class="flex items-center mb-4">
             <star-rating :rating="product.rating.rate"></star-rating>
-            <span class="ml-2">{{ product.rating.count }} reviews</span>
+            <span class="ml-2"
+              >{{ product.rating.rate }} ({{
+                product.rating.count
+              }}
+              reviews)</span
+            >
           </div>
           <router-link
             to="/"
-            class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-black"
           >
             Back to Products
           </router-link>

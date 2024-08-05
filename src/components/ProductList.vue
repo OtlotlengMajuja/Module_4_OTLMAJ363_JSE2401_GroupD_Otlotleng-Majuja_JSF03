@@ -1,7 +1,6 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="mb-8 bg-white rounded-lg shadow p-6">
-      <h1 class="text-2xl font-bold mb-4">Our Products</h1>
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center">
           <label for="category" class="mr-2">Category:</label>
