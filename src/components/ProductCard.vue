@@ -20,9 +20,30 @@
 </template>
 
 <script>
+/**
+ * ProductCard component
+ *
+ * This component represents a card that displays product details.
+ *
+ * @component
+ * @prop {Object} product - The product object containing details to be displayed.
+ * @prop {string} product.image - The URL of the product image.
+ * @prop {string} product.title - The title of the product.
+ * @prop {number} product.price - The price of the product.
+ * @prop {string} product.category - The category of the product.
+ * @prop {Object} product.rating - The rating object of the product.
+ * @prop {number} product.rating.rate - The average rating of the product.
+ * @prop {number} product.rating.count - The number of ratings the product has received.
+ */
 export default {
   name: "ProductCard",
   props: {
+    /**
+     * The product object containing details to be displayed.
+     *
+     * @type {Object}
+     * @required
+     */
     product: {
       type: Object,
       required: true,
