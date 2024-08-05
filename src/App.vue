@@ -6,18 +6,12 @@
 </template>
 
 <script>
-import { provide } from "vue";
 import Navbar from "./components/Navbar.vue";
-import { useProductStore } from "./store/productStore";
 
 export default {
   name: "App",
   components: {
     Navbar,
-  },
-  setup() {
-    const productStore = useProductStore();
-    provide("productStore", productStore);
   },
 };
 </script>
