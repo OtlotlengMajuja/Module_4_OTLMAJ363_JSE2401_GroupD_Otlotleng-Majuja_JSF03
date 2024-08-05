@@ -56,7 +56,8 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import ProductCard from "./ProductCard.vue";
 
 export default {
@@ -65,59 +66,31 @@ export default {
     ProductCard,
   },
   setup() {
-    const products = ref([]);
-    const loading = ref(true);
-    const selectedCategory = ref("");
-    const sortOrder = ref("");
-    const filteredProductsList = ref([]);
-    const categories = ref([]);
+    const store = useStore();
 
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(
-          "https://fakestoreapi.com/products/categories"
-        );
-        categories.value = await response.json();
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+    const products = computed(() => store.state.products);
+    const loading = computed(() => store.state.loading);
+    const selectedCategory = computed({
+      get: () => store.state.selectedCategory,
+      set: (value) => store.commit("setSelectedCategory", value),
+    });
+    const sortOrder = computed({
+      get: () => store.state.sortOrder,
+      set: (value) => store.commit("setSortOrder", value),
+    });
+    const filteredProductsList = computed(() => store.getters.filteredProducts);
+    const categories = computed(() => store.state.categories);
 
-    const fetchProducts = async () => {
-      loading.value = true;
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        products.value = await response.json();
-        filteredProductsList.value = products.value;
-        loading.value = false;
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        loading.value = false;
-      }
-    };
+    const fetchCategories = () => store.dispatch("fetchCategories");
+    const fetchProducts = () => store.dispatch("fetchProducts");
 
     const filterProducts = () => {
-      let tempProducts = products.value;
-
-      if (selectedCategory.value) {
-        tempProducts = tempProducts.filter(
-          (product) => product.category === selectedCategory.value
-        );
-      }
-
-      if (sortOrder.value === "asc") {
-        tempProducts = tempProducts.sort((a, b) => a.price - b.price);
-      } else if (sortOrder.value === "desc") {
-        tempProducts = tempProducts.sort((a, b) => b.price - a.price);
-      }
-
-      filteredProductsList.value = tempProducts;
+      store.commit("setSelectedCategory", selectedCategory.value);
+      store.commit("setSortOrder", sortOrder.value);
     };
 
     const resetFilters = () => {
-      selectedCategory.value = "";
-      sortOrder.value = "";
-      filteredProductsList.value = products.value;
+      store.commit("resetFilters");
     };
 
     onMounted(async () => {
